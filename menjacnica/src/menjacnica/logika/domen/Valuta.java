@@ -1,4 +1,4 @@
-package menjacnica;
+package menjacnica.logika.domen;
 
 import java.io.Serializable;
 

@@ -1,7 +1,8 @@
-package menjacnica;
+package menjacnica.logika.domen;
 
 import java.util.LinkedList;
 
+import menjacnica.logika.interfejsi.MenjacnicaInterface;
 import sistemske_operacije.SODodajValutu;
 import sistemske_operacije.SOIzvrsiTransakciju;
 import sistemske_operacije.SOObrisiValutu;

@@ -2,7 +2,7 @@ package sistemske_operacije;
 
 import java.util.LinkedList;
 
-import menjacnica.Valuta;
+import menjacnica.logika.domen.Valuta;
 
 public class SOObrisiValutu {
 	public static LinkedList<Valuta> izvrsi(LinkedList<Valuta> kursnaLista, Valuta valuta) {

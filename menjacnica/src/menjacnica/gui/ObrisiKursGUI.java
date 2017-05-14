@@ -1,26 +1,24 @@
 package menjacnica.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.SwingConstants;
-import javax.swing.JCheckBox;
+import javax.swing.border.EmptyBorder;
 
-import menjacnica.Valuta;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
+import menjacnica.gui.gui_kontroler.GuiKontroler;
+import menjacnica.logika.domen.Valuta;
 
 public class ObrisiKursGUI extends JFrame {
 
@@ -49,10 +47,16 @@ public class ObrisiKursGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public ObrisiKursGUI(MenjacnicaGUI glavniProzor, Valuta valuta) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GuiKontroler.zatvoriProzorObrisiKursGui();
+			}
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ObrisiKursGUI.class.getResource("/icons/Screenshot.png")));
 		setResizable(false);
 		setTitle("Obrisi kurs");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 325);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -228,9 +232,9 @@ public class ObrisiKursGUI extends JFrame {
 
 	private void obrisiValutu() {
 		try{
-			glavniProzor.sistem.obrisiValutu(valuta);
+			GuiKontroler.sistem.obrisiValutu(valuta);
 			
-			glavniProzor.prikaziSveValute();
+			GuiKontroler.prikaziSveValute();
 			dispose();
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(contentPane, e1.getMessage(),

@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import menjacnica.Valuta;
+import menjacnica.logika.domen.Valuta;
 
 
 public class MenjacnicaTableModel extends AbstractTableModel {

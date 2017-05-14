@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
-import menjacnica.Valuta;
+import menjacnica.logika.domen.Valuta;
 
 public class SOSacuvajUFile {
 	public static void izvrsi(LinkedList<Valuta> kursnaLista, String putanja) {

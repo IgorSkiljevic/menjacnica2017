@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.LinkedList;
 
-import menjacnica.Valuta;
+import menjacnica.logika.domen.Valuta;
 
 public class SOUcitajIzFajla {
 	public static LinkedList<Valuta> izvrsi(LinkedList<Valuta> kursnaLista, String putanja) {

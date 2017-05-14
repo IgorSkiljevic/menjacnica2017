@@ -1,6 +1,6 @@
 package sistemske_operacije;
 
-import menjacnica.Valuta;
+import menjacnica.logika.domen.Valuta;
 
 public class SOIzvrsiTransakciju {
 	public static double izvrsi(Valuta valuta, boolean prodaja, double iznos) {
