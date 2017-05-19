@@ -43,7 +43,6 @@ public class IzvrsiZamenuGUI extends JFrame {
 	private JLabel lblKonacniIznos;
 	public JTextField textFieldKonacniIznos;
 
-
 	/**
 	 * Create the frame.
 	 */
@@ -99,7 +98,7 @@ public class IzvrsiZamenuGUI extends JFrame {
 		return lblProdajniKurs;
 	}
 
-	private JTextField getTextFieldKupovniKurs() {
+	public JTextField getTextFieldKupovniKurs() {
 		if (textFieldKupovniKurs == null) {
 			textFieldKupovniKurs = new JTextField();
 			textFieldKupovniKurs.setEditable(false);
@@ -109,7 +108,7 @@ public class IzvrsiZamenuGUI extends JFrame {
 		return textFieldKupovniKurs;
 	}
 
-	private JTextField getTextFieldProdajniKurs() {
+	public JTextField getTextFieldProdajniKurs() {
 		if (textFieldProdajniKurs == null) {
 			textFieldProdajniKurs = new JTextField();
 			textFieldProdajniKurs.setEditable(false);
@@ -215,7 +214,7 @@ public class IzvrsiZamenuGUI extends JFrame {
 		return slider;
 	}
 
-	private JTextField getTextFieldValuta() {
+	public JTextField getTextFieldValuta() {
 		if (textFieldValuta == null) {
 			textFieldValuta = new JTextField();
 			textFieldValuta.setEditable(false);

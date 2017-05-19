@@ -49,25 +49,6 @@ public class MenjacnicaGUI extends JFrame {
 	// klasa na logickom nivou
 	public JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenjacnicaGUI frame = new MenjacnicaGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public MenjacnicaGUI() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -86,6 +67,7 @@ public class MenjacnicaGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.add(getScrollPane(), BorderLayout.CENTER);
 		contentPane.add(getPanel(), BorderLayout.EAST);
+		setLocationRelativeTo(null);
 
 	}
 
@@ -255,7 +237,7 @@ public class MenjacnicaGUI extends JFrame {
 		GuiKontroler.izvrsiZamenu();
 	}
 
-	private JTable getTable() {
+	public JTable getTable() {
 		if (table == null) {
 			table = new JTable();
 			table.setModel(new MenjacnicaTableModel());

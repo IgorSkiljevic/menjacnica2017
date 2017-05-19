@@ -3,7 +3,7 @@ package menjacnica.logika.domen;
 import java.io.Serializable;
 
 public class Valuta implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -12,55 +12,68 @@ public class Valuta implements Serializable {
 	private String skraceniNaziv;
 	private String naziv;
 	private double kupovni, srednji, prodajni;
-	
+
+	public Valuta(int sifra, String skraceniNaziv, String naziv, double kupovni, double srednji, double prodajni) {
+		super();
+		this.sifra = sifra;
+		this.skraceniNaziv = skraceniNaziv;
+		this.naziv = naziv;
+		this.kupovni = kupovni;
+		this.srednji = srednji;
+		this.prodajni = prodajni;
+	}
+
+	public Valuta() {
+	}
+
 	public int getSifra() {
 		return sifra;
 	}
-	
+
 	public void setSifra(int sifra) {
 		this.sifra = sifra;
 	}
-	
+
 	public String getSkraceniNaziv() {
 		return skraceniNaziv;
 	}
-	
+
 	public void setSkraceniNaziv(String skraceniNaziv) {
 		this.skraceniNaziv = skraceniNaziv;
 	}
-	
+
 	public String getNaziv() {
 		return naziv;
 	}
-	
+
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
-	
+
 	public double getKupovni() {
 		return kupovni;
 	}
-	
+
 	public void setKupovni(double kupovni) {
 		this.kupovni = kupovni;
 	}
-	
+
 	public double getSrednji() {
 		return srednji;
 	}
-	
+
 	public void setSrednji(double srednji) {
 		this.srednji = srednji;
 	}
-	
+
 	public double getProdajni() {
 		return prodajni;
 	}
-	
+
 	public void setProdajni(double prodajni) {
 		this.prodajni = prodajni;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -85,11 +98,8 @@ public class Valuta implements Serializable {
 
 	@Override
 	public String toString() {
-		return "[sifra=" + sifra + ", skraceniNaziv=" + skraceniNaziv
-				+ ", kupovni=" + kupovni + ", srednji=" + srednji
+		return "[sifra=" + sifra + ", skraceniNaziv=" + skraceniNaziv + ", kupovni=" + kupovni + ", srednji=" + srednji
 				+ ", prodajni=" + prodajni + "]";
 	}
-
-	
 
 }

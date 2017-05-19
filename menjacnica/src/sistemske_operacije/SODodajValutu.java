@@ -6,7 +6,7 @@ import menjacnica.logika.domen.Valuta;
 
 public class SODodajValutu {
 
-	public static LinkedList<Valuta> izvrsi(LinkedList<Valuta> kursnaLista, Valuta valuta) {
+	public static void izvrsi(LinkedList<Valuta> kursnaLista, Valuta valuta) {
 		if (valuta == null)
 			throw new RuntimeException("Valuta ne sme biti null");
 
@@ -14,6 +14,5 @@ public class SODodajValutu {
 			throw new RuntimeException("Valuta je vec uneta u kursnu listu");
 
 		kursnaLista.add(valuta);
-		return kursnaLista;
 	}
 }

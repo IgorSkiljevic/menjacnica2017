@@ -12,17 +12,19 @@ import menjacnica.gui.ObrisiKursGUI;
 import menjacnica.gui.models.MenjacnicaTableModel;
 import menjacnica.logika.domen.Menjacnica;
 import menjacnica.logika.domen.Valuta;
+import menjacnica.logika.interfejsi.MenjacnicaInterface;
 
 public class GuiKontroler {
-	public static DodajKursGUI dodajKursGui;
-	public static IzvrsiZamenuGUI izvrsiZamenuGui;
-	public static MenjacnicaGUI menjacnicaGui;
-	public static ObrisiKursGUI obrisiKursGui;
-	public static Menjacnica sistem = new Menjacnica();
+	private static DodajKursGUI dodajKursGui;
+	private static IzvrsiZamenuGUI izvrsiZamenuGui;
+	private static MenjacnicaGUI menjacnicaGui;
+	private static ObrisiKursGUI obrisiKursGui;
+	private static MenjacnicaInterface sistem = new Menjacnica();
 
 	public static void prikaziMenjacnicaGui() {
 		menjacnicaGui = new MenjacnicaGUI();
 		menjacnicaGui.setVisible(true);
+
 	}
 
 	public static void main(String[] args) {
@@ -55,13 +57,13 @@ public class GuiKontroler {
 	public static void prikaziSveValute() {
 
 		((MenjacnicaTableModel) menjacnicaGui.table.getModel()).staviSveValuteUModel(sistem.vratiKursnuListu());
-
 	}
 
 	public static void otvoriProzorDodajKursGui() {
 		dodajKursGui = new DodajKursGUI(menjacnicaGui);
 		dodajKursGui.setLocationRelativeTo(menjacnicaGui);
 		dodajKursGui.setVisible(true);
+		// prikaziSveValute();
 	}
 
 	public static void sacuvajUFajl() {
@@ -79,7 +81,9 @@ public class GuiKontroler {
 		}
 	}
 
-	public static void dodajValutu(Valuta valuta) {
+	public static void dodajValutu(int sifra, String naziv, String skraceniNaziv, double prodajni, double kupovni,
+			double srednji) {
+		Valuta valuta = new Valuta(sifra, skraceniNaziv, skraceniNaziv, kupovni, srednji, prodajni);
 		sistem.dodajValutu(valuta);
 	}
 
@@ -99,28 +103,34 @@ public class GuiKontroler {
 		if (menjacnicaGui.table.getSelectedRow() != -1) {
 
 			MenjacnicaTableModel model = (MenjacnicaTableModel) (menjacnicaGui.table.getModel());
-			izvrsiZamenuGui = new IzvrsiZamenuGUI(menjacnicaGui,
-					model.vratiValutu(menjacnicaGui.table.getSelectedRow()));
+			Valuta v = model.vratiValutu(menjacnicaGui.table.getSelectedRow());
 
+			izvrsiZamenuGui = new IzvrsiZamenuGUI(menjacnicaGui, v);
 			izvrsiZamenuGui.setLocationRelativeTo(menjacnicaGui);
 			izvrsiZamenuGui.setVisible(true);
+			prikaziValutuIzvrsiZamenaGui(v.getProdajni(), v.getKupovni(), v.getSkraceniNaziv());
 		}
 	}
 
 	public static void zatvoriProzorObrisiKursGui() {
-		obrisiKursGui.setVisible(false);
-		obrisiKursGui = null;
-
+		if (obrisiKursGui != null) {
+			obrisiKursGui.dispose();
+			obrisiKursGui = null;
+		}
 	}
 
 	public static void zatvoriProzorIzrsiZamenuGui() {
-		izvrsiZamenuGui.setVisible(false);
-		izvrsiZamenuGui = null;
+		if (izvrsiZamenuGui != null) {
+			izvrsiZamenuGui.dispose();
+			izvrsiZamenuGui = null;
+		}
 	}
 
 	public static void zatvoriProzorDodajKursGui() {
-		dodajKursGui.setVisible(false);
-		dodajKursGui = null;
+		if (dodajKursGui != null) {
+			dodajKursGui.dispose();
+			dodajKursGui = null;
+		}
 	}
 
 	public static void zameni() {
@@ -140,5 +150,46 @@ public class GuiKontroler {
 	public static void prikaziAboutProzor() {
 		JOptionPane.showMessageDialog(menjacnicaGui, "Autor: Bojan Tomic, Verzija 1.0", "O programu Menjacnica",
 				JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public static void obrisiValutu(int sifra, String naziv, String skraceniNaziv, double prodajni, double kupovni,
+			double srednji) {
+		Valuta valuta = new Valuta(sifra, skraceniNaziv, skraceniNaziv, kupovni, srednji, prodajni);
+		sistem.obrisiValutu(valuta);
+	}
+
+	private static void prikaziValutuIzvrsiZamenaGui(double prodajni, double kupovni, String skraceniNaziv) {
+		izvrsiZamenuGui.getTextFieldProdajniKurs().setText("" + prodajni);
+		izvrsiZamenuGui.getTextFieldKupovniKurs().setText("" + kupovni);
+		izvrsiZamenuGui.getTextFieldValuta().setText(skraceniNaziv);
+	}
+
+	public static void unesiKurs() {
+		try {
+			Valuta valuta = new Valuta();
+
+			// Punjenje podataka o valuti
+			valuta.setNaziv(dodajKursGui.getTextFieldNaziv().getText());
+			valuta.setSkraceniNaziv(dodajKursGui.getTextFieldSkraceniNaziv().getText());
+			valuta.setSifra((Integer) (dodajKursGui.getSpinnerSifra().getValue()));
+			valuta.setProdajni(Double.parseDouble(dodajKursGui.getTextFieldProdajniKurs().getText()));
+			valuta.setKupovni(Double.parseDouble(dodajKursGui.getTextFieldKupovniKurs().getText()));
+			valuta.setSrednji(Double.parseDouble(dodajKursGui.getTextFieldSrednjiKurs().getText()));
+
+			// Dodavanje valute u kursnu listu
+			dodajValutu(valuta.getSifra(), valuta.getNaziv(), valuta.getSkraceniNaziv(), valuta.getProdajni(),
+					valuta.getKupovni(), valuta.getSrednji());
+					// glavniProzor.sistem.dodajValutu(valuta);
+
+			// Osvezavanje glavnog prozora
+			prikaziSveValute();
+
+			// Zatvaranje DodajValutuGUI prozora
+			zatvoriProzorDodajKursGui();
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(dodajKursGui.getContentPane(), e1.getMessage(), "Greska",
+					JOptionPane.ERROR_MESSAGE);
+
+		}
 	}
 }
